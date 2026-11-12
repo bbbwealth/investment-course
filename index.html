@@ -4,108 +4,206 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5fb">
-  <meta name="description" content="Money POV 免费投资入门课程。在线预览《投资新手第一课》，下载可填写练习的 PDF。">
+  <meta name="description" content="Money POV 零基础投资入门。用 RM1 和 RM100 看懂本金、复利和分散投资，并在线做 5 分钟练习。">
   <title>免费投资入门课程 · BBBwealth</title>
-  <link rel="preload" href="./page-1.webp" as="image">
   <style>
     :root {
       color-scheme: light;
-      --background: #f6f5fb;
+      --bg: #f6f5fb;
       --ink: #202c56;
       --muted: #555c73;
-      --accent: #353fa3;
-      --border: #e2e2f1;
+      --blue: #353fa3;
+      --lavender: #e8e9f8;
+      --yellow: #fbf0bd;
+      --red: #a51d2b;
+      --red-bg: #fde7e8;
+      --line: #dadbea;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: var(--background);
+      background: var(--bg);
       color: var(--ink);
-      font: 1rem/1.55 "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+      font: 1rem/1.6 "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
     }
-    .container { max-width: 52rem; padding: 0 1.25rem; margin: 0 auto; }
-    .top { background: #fff; border-bottom: 1px solid var(--border); }
-    .bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .75rem 1.25rem;
-      padding-block: .85rem;
+    main, .bar { width: min(100% - 2rem, 45rem); margin-inline: auto; }
+    header { background: white; border-bottom: 1px solid var(--line); }
+    .bar { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding-block: .8rem; }
+    .brand { color: var(--blue); font-weight: 800; font-size: .85rem; }
+    a { color: var(--blue); text-underline-offset: .2em; }
+    a:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .jump { font-weight: 750; white-space: nowrap; font-size: .88rem; }
+    .cover { margin: 1rem 0 0; overflow: hidden; border-radius: 1rem; aspect-ratio: 480 / 208; }
+    .cover img { display: block; width: 100%; height: auto; margin-top: -10%; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
     }
-    h1 { font-size: clamp(1.12rem, 3vw, 1.5rem); margin: 0; line-height: 1.3; }
-    .brand { color: var(--accent); font-size: .77rem; font-weight: 700; margin: 0 0 .2rem; }
-    .download {
-      display: inline-flex;
-      gap: .45rem;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      min-height: 2.85rem;
-      padding: .52rem .9rem;
-      border-radius: .65rem;
-      background: var(--accent);
-      color: #fff;
-      font-size: .95rem;
-      font-weight: 750;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .download:hover { background: #252e83; }
-    .download svg { width: 1.15rem; height: 1.15rem; }
-    a:focus-visible { outline: 3px solid #a51d2b; outline-offset: 3px; }
-    .note {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: .25rem 1rem;
-      align-items: baseline;
-      margin: .8rem 0;
-      font-size: .85rem;
-      color: var(--muted);
-    }
-    .note a { color: var(--accent); font-weight: 700; text-underline-offset: .2em; }
-    .preview { display: grid; gap: 1rem; padding-bottom: 1.75rem; }
-    .preview img {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: var(--background);
-      border: 1px solid var(--border);
-      border-radius: .7rem;
-    }
-    @media (max-width: 30rem) {
-      .container { padding-inline: .7rem; }
-      .download { font-size: .86rem; padding-inline: .65rem; }
-      .brand { font-size: .68rem; }
-      .note { font-size: .78rem; }
-    }
-    @media (max-width: 20rem) {
-      .bar { flex-wrap: wrap; }
+    section { margin-top: 1.9rem; }
+    h2 { margin: 0 0 .6rem; font-size: clamp(1.15rem, 3.8vw, 1.45rem); line-height: 1.35; }
+    h2 span { font-size: .78em; color: var(--blue); margin-right: .45em; }
+    h3 { margin: 0 0 .35rem; font-size: 1.04rem; line-height: 1.35; }
+    p { margin: .45rem 0; }
+    strong, output { font-weight: 800; }
+    .grid, .cash-flow { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .5rem; margin: .65rem 0; }
+    .card { min-width: 0; padding: .65rem; background: #fff; border-radius: .7rem; }
+    .card strong, .card small { display: block; }
+    .card strong { line-height: 1.3; }
+    small, .note { color: var(--muted); font-size: .86rem; }
+    .value { font-size: clamp(.98rem, 3.75vw, 1.35rem); color: var(--blue); font-variant-numeric: tabular-nums; }
+    .cash-flow .card { text-align: center; }
+    .accent { background: var(--blue); color: #fff; }
+    .accent .value, .accent small { color: #fff; }
+    .risk, .risk strong { color: var(--red); }
+    .risk { background: var(--red-bg); border-radius: .65rem; padding: .6rem .75rem; margin: .7rem 0; }
+    .risk a { margin-right: .6rem; }
+    .panel { background: #fff; border-radius: .7rem; padding: .75rem; margin: .7rem 0; }
+    .tint { background: var(--lavender); }
+    .series { margin: .6rem 0; display: grid; gap: .55rem; }
+    .bar-row { display: grid; grid-template-columns: 2.1rem 1fr 5rem; gap: .5rem; align-items: center; }
+    .track { background: var(--lavender); border-radius: 2rem; height: .6rem; }
+    .track b { display: block; background: var(--blue); height: 100%; border-radius: inherit; }
+    .bar-row strong:last-child { text-align: right; color: var(--blue); }
+    .split { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .25rem .5rem; align-items: center; margin: .7rem 0; }
+    .pieces { grid-column: 1 / -1; display: flex; gap: .25rem; }
+    .pieces span { flex: 1; text-align: center; background: var(--lavender); border-radius: .35rem; padding: .3rem .1rem; font-weight: 750; font-size: .82rem; white-space: nowrap; }
+    .pieces .drop { background: var(--red-bg); color: var(--red); }
+    #practice { background: var(--yellow); border-radius: 1rem; padding: 1rem; margin-bottom: 1.6rem; scroll-margin-top: 1rem; }
+    .fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .65rem; margin: .8rem 0; }
+    label, .field-name { display: block; font-size: .9rem; font-weight: 750; margin-bottom: .25rem; }
+    .field { display: flex; align-items: center; gap: .35rem; background: #fff; border: 1px solid var(--line); border-radius: .5rem; padding: .2rem .55rem; min-height: 2.75rem; }
+    .field:focus-within { border-color: var(--blue); }
+    input { flex: 1; min-width: 0; width: 100%; border: 0; background: transparent; color: var(--ink); padding: .36rem 0; font: inherit; font-weight: 700; }
+    input:focus { outline: 0; }
+    .field output { flex: 1; min-width: 0; color: var(--blue); overflow-wrap: anywhere; }
+    footer { background: var(--lavender); padding: .8rem 1rem; text-align: center; color: var(--blue); font-size: .8rem; font-weight: 750; }
+    @media (max-width: 25rem) {
+      main, .bar { width: calc(100% - 1.25rem); }
+      .card { padding: .5rem; }
+      .card small { font-size: .76rem; }
+      .pieces span { font-size: .75rem; }
     }
   </style>
 </head>
 <body>
-  <header class="top">
-    <div class="container bar">
-      <div>
-        <p class="brand">Money POV · @BBBWEALTH</p>
-        <h1>免费投资入门课程</h1>
+  <header><div class="bar"><span class="brand">Money POV · @BBBWEALTH</span><a class="jump" href="#practice">做练习 ↓</a></div></header>
+  <main>
+    <h1 class="sr-only">免费投资入门课程｜投资新手第一课</h1>
+    <figure class="cover">
+      <img src="./page-1.webp" alt="老师在黑板前捧书，从 RM1 开始讲复利。" width="1056" height="2214" fetchpriority="high">
+    </figure>
+
+    <section aria-labelledby="intro">
+      <h2 id="intro"><span>01</span>投资是什么？</h2>
+      <p>把钱投入股票、债券或基金等资产，希望以后赚到钱。</p>
+      <div class="grid">
+        <div class="card"><strong>本金</strong><small>你投入的钱</small></div>
+        <div class="card"><strong>回报</strong><small>赚了或亏了多少</small></div>
+        <div class="card"><strong>回报率</strong><small>赚亏占本金的百分比</small></div>
       </div>
-      <a class="download" href="./BBBwealth-Investment-Course.pdf" download="BBBwealth-Investment-Course.pdf">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>
-        下载 PDF
-      </a>
-    </div>
-  </header>
-  <main class="container">
-    <div class="note">
-      <span>下载后，用支持 PDF 表单的阅读器填写第 05 节。</span>
-      <a href="./BBBwealth-Investment-Course.pdf" target="_blank" rel="noopener">打开原始 PDF ↗</a>
-    </div>
-    <section class="preview" aria-label="课程 PDF 预览">
-      <img src="./page-1.webp" width="1056" height="2214" alt="第 1 页。投资是什么？从 RM1 看懂复利。" fetchpriority="high">
-      <img src="./page-2.webp" width="1056" height="2214" alt="第 2 页。认识股票、基金和 ETF，了解分散投资，以及可填写的五分钟练习。" loading="lazy">
+      <div class="cash-flow" aria-label="RM100 涨 20% 到 RM120，再跌 20% 到 RM96">
+        <div class="card"><strong class="value">RM100</strong><small>本金</small></div>
+        <div class="card"><strong class="value">RM120</strong><small>涨 20%</small></div>
+        <div class="card risk" style="margin:0"><strong class="value" style="color:inherit">RM96</strong><small>跌 20%</small></div>
+      </div>
+      <p class="risk"><strong>本金也会亏。</strong>最后的 20% 从 RM120 算，结果亏了 RM4。</p>
+    </section>
+
+    <section aria-labelledby="compound">
+      <h2 id="compound"><span>02</span>复利是什么？</h2>
+      <p>赚到的钱继续留在里面，下一年一起算回报。</p>
+      <p class="risk"><strong>10% 只是试算。</strong>实际每年可能涨，也可能跌。</p>
+      <p class="note">18 岁一次投 RM1，假设每年增长 10%。</p>
+      <div class="grid">
+        <div class="card"><small>第 1 年</small><strong class="value">RM1.10</strong><small>RM1 × 1.10</small></div>
+        <div class="card"><small>第 2 年</small><strong class="value">RM1.21</strong><small>RM1.10 × 1.10</small></div>
+        <div class="card accent"><small>65 岁</small><strong class="value">RM88.20</strong><small>47 年复利</small></div>
+      </div>
+      <p class="panel tint">30 岁才投同样的 RM1，少了 12 年。65 岁时约有 <strong>RM28.10</strong>。</p>
+      <div class="panel">
+        <h3>30 岁一次投 RM100，65 岁约有多少？</h3>
+        <div class="series" aria-label="假设年回报率">
+          <div class="bar-row"><strong>3%</strong><div class="track" aria-hidden="true"><b style="width:10%"></b></div><strong>RM281</strong></div>
+          <div class="bar-row"><strong>6%</strong><div class="track" aria-hidden="true"><b style="width:27.4%"></b></div><strong>RM769</strong></div>
+          <div class="bar-row"><strong>10%</strong><div class="track" aria-hidden="true"><b style="width:100%"></b></div><strong>RM2,810</strong></div>
+        </div>
+        <small>假设年回报率固定，未计费用和通胀。</small>
+      </div>
+      <p class="note">一次投入试算：期末金额 = 本金 ×（1 + 年回报率）<sup>年数</sup>。假设年回报率固定，收益继续投入。</p>
+    </section>
+
+    <section aria-labelledby="budget">
+      <h2 id="budget"><span>03</span>哪些钱可以拿来投资？</h2>
+      <div class="grid">
+        <div class="card"><strong>近期支出</strong><small>房租、学费</small></div>
+        <div class="card"><strong>应急备用金</strong><small>失业或临时开销</small></div>
+        <div class="card"><strong>高息债务还款</strong><small>例如信用卡欠款</small></div>
+      </div>
+      <p class="risk"><strong>先留好这三笔钱</strong>，再考虑用近期用不到的钱投资。</p>
+    </section>
+
+    <section aria-labelledby="products">
+      <h2 id="products"><span>04</span>第一次买，先认识这三个名词</h2>
+      <div class="grid">
+        <div class="card"><strong>股票</strong><small>持有一家公司的部分股权</small></div>
+        <div class="card"><strong>基金</strong><small>把大家的钱合起来，投资一组资产</small></div>
+        <div class="card"><strong>ETF</strong><small>可以在交易所买卖的基金</small></div>
+      </div>
+      <p>买前看它持有什么、收费多少。RM100 收 RM5，费用就是 5%。<strong style="color:var(--red)">有些 ETF 只投一个行业。</strong></p>
+      <div class="panel">
+        <h3>分散投资｜RM100 怎么分？</h3>
+        <p class="note">假设一家跌 20%，其他公司持平。</p>
+        <div class="split">
+          <strong>集中在 1 家</strong><strong>剩 RM80</strong>
+          <div class="pieces"><span class="drop">RM100 ↓20%</span></div>
+        </div>
+        <div class="split">
+          <strong>平均分到 5 家</strong><strong>剩 RM96</strong>
+          <div class="pieces"><span class="drop">RM20 ↓</span><span>RM20</span><span>RM20</span><span>RM20</span><span>RM20</span></div>
+        </div>
+        <p class="risk"><strong>分散后，整体仍可能亏损。</strong></p>
+      </div>
+      <div class="risk">
+        <strong>转账前，先查对方是否获准提供相关服务。</strong>
+        <p>留意保证高回报、催转账，或冒用持牌机构名义的情况。</p>
+        <a href="https://www.sc.com.my/investment-checker">SC Investment Checker</a>
+        <a href="https://www.sc.com.my/investor-empowerment/scam">SC 防骗指南</a>
+      </div>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <h2 id="practice-title"><span>05</span>做一个 5 分钟练习</h2>
+      <p>填下目标金额、预计年数和每月能投入多少。</p>
+      <div class="fields">
+        <div><label for="goal">目标金额</label><div class="field"><input id="goal" type="number" min="0" step=".01" inputmode="decimal" autocomplete="off"><small>RM</small></div></div>
+        <div><label for="years">预计多久会用到</label><div class="field"><input id="years" type="number" min="0" step="1" inputmode="numeric" autocomplete="off"><small>年</small></div></div>
+        <div><label for="monthly">每月可投入</label><div class="field"><input id="monthly" type="number" min="0" step=".01" inputmode="decimal" autocomplete="off"><small>RM</small></div></div>
+        <div><span class="field-name" id="annual-label">一年投入本金</span><div class="field"><output id="annual" for="monthly" aria-labelledby="annual-label">—</output><small>RM</small></div></div>
+      </div>
+      <p class="note">每月投入 × 12 = 一年投入本金。例如 RM100 × 12 = RM1,200。</p>
+      <div class="grid">
+        <div class="card"><small>第 1 个月</small><strong>RM100</strong></div>
+        <div class="card"><small>第 2 个月</small><strong>RM100</strong></div>
+        <div class="card"><small>第 3 个月</small><strong>RM100</strong></div>
+      </div>
+      <p class="note">第 1 个月的 RM100 投得更久，也经历了更长时间的涨跌。</p>
     </section>
   </main>
+  <footer>Money POV · @BBBWEALTH</footer>
+  <script>
+    const monthly = document.getElementById('monthly');
+    const annual = document.getElementById('annual');
+    const format = new Intl.NumberFormat('en-MY', { maximumFractionDigits: 2 });
+
+    function updateAnnual() {
+      const amount = monthly.valueAsNumber;
+      annual.textContent = Number.isFinite(amount) && monthly.validity.valid
+        ? format.format(amount * 12)
+        : '—';
+    }
+
+    monthly.addEventListener('input', updateAnnual);
+    updateAnnual();
+  </script>
 </body>
 </html>
