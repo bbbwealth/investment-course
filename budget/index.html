@@ -45,6 +45,32 @@
     }
     .start span { font-size:.75rem; font-weight:600; }
     .start:hover { background:#27308b; }
+    .welcome-split { margin-top:1.25rem; }
+    .welcome-split h2 { font-family:inherit; font-size:1.08rem; }
+    .welcome-split h2 .en { font-size:.8rem; }
+    .welcome-cards {
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:.55rem;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .welcome-card {
+      display:grid;
+      justify-items:center;
+      align-content:start;
+      gap:.23rem;
+      min-width:0;
+      padding:.7rem .35rem;
+      border-radius:.68rem;
+      text-align:center;
+      background:var(--soft);
+    }
+    .welcome-card .icon { width:2rem; background:white; }
+    .welcome-card strong { color:var(--tone); font-size:1.2rem; line-height:1.2; font-variant-numeric:tabular-nums; }
+    .welcome-card .card-name { font-size:.84rem; line-height:1.24; font-weight:750; }
+    .welcome-card .en { font-size:.72rem; line-height:1.28; }
     #welcome-title:focus, #worksheet-heading:focus { outline:none; }
     .en { display:block; font-family:system-ui,sans-serif; color:var(--muted); font-size:.84rem; font-weight:500; line-height:1.42; }
     .figure { position:relative; align-self:stretch; min-width:0; }
@@ -120,6 +146,9 @@
       .hero-summary { font-size:.79rem; }
       .hero .en { font-size:.72rem; }
       .hero-en { font-size:.83rem; }
+      .welcome-cards { grid-template-columns:repeat(6,minmax(0,1fr)); }
+      .welcome-card { grid-column:span 2; }
+      .welcome-card:nth-child(4) { grid-column:2 / span 2; }
       .row-title .icon { width:1.45rem; }
       th,td { padding:.42rem .3rem; }
       .table { font-size:.79rem; }
@@ -145,16 +174,48 @@
     </div>
   </header>
   <main>
-    <section class="hero" id="welcome" aria-labelledby="welcome-title">
-      <div class="hero-copy">
-        <p class="eyebrow">欢迎来到 BUDGET<span class="welcome-en" lang="en">Welcome to BUDGET</span></p>
-        <h1 id="welcome-title" tabindex="-1">薪水一到手，<br>钱要去哪里？</h1>
-        <p class="hero-en" lang="en">Payday’s here.<br>Where should your money go?</p>
-        <p class="hero-summary">填到手月薪，看看这 5 份钱怎样分。<span class="en" lang="en">Enter your take-home pay to see how to split it into five pots.</span></p>
-        <a class="start" href="#worksheet">开始算预算 →<span lang="en">Start my budget</span></a>
-      </div>
-      <div class="figure"><img src="./planner.webp" width="1158" height="1359" alt="手拿预算夹板的理财师" fetchpriority="high"></div>
-    </section>
+    <div id="welcome">
+      <section class="hero" aria-labelledby="welcome-title">
+        <div class="hero-copy">
+          <p class="eyebrow">欢迎来到 BUDGET<span class="welcome-en" lang="en">Welcome to BUDGET</span></p>
+          <h1 id="welcome-title" tabindex="-1">薪水一到手，<br>钱要去哪里？</h1>
+          <p class="hero-en" lang="en">Payday’s here.<br>Where should your money go?</p>
+          <p class="hero-summary">填到手月薪，看看这 5 份钱怎样分。<span class="en" lang="en">Enter your take-home pay to see how to split it into five pots.</span></p>
+          <a class="start" href="#worksheet">开始算预算 →<span lang="en">Start my budget</span></a>
+        </div>
+        <div class="figure"><img src="./planner.webp" width="1158" height="1359" alt="手拿预算夹板的理财师" fetchpriority="high"></div>
+      </section>
+      <section class="welcome-split" aria-labelledby="welcome-split-title">
+        <h2 id="welcome-split-title">影片示范比例<span class="en" lang="en">Example split</span></h2>
+        <ul class="welcome-cards">
+          <li class="welcome-card home">
+            <span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span>
+            <strong>55%</strong>
+            <span class="card-name">日常开销<span class="en" lang="en">Living costs</span></span>
+          </li>
+          <li class="welcome-card fun">
+            <span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span>
+            <strong>5%</strong>
+            <span class="card-name">开心钱<span class="en" lang="en">Fun money</span></span>
+          </li>
+          <li class="welcome-card debt">
+            <span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span>
+            <strong>10%</strong>
+            <span class="card-name">还债<span class="en" lang="en">Debt repayments</span></span>
+          </li>
+          <li class="welcome-card save">
+            <span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span>
+            <strong>15%</strong>
+            <span class="card-name">近期储蓄<span class="en" lang="en">Short-term savings</span></span>
+          </li>
+          <li class="welcome-card invest">
+            <span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span>
+            <strong>15%</strong>
+            <span class="card-name">长期投资<span class="en" lang="en">Long-term investing</span></span>
+          </li>
+        </ul>
+      </section>
+    </div>
 
     <section id="worksheet" aria-labelledby="worksheet-heading" hidden>
       <h2 id="worksheet-heading" tabindex="-1">来分这个月的薪水<span class="en" lang="en">Make this month’s budget</span></h2>
