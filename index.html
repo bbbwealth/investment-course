@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5fb">
+  <meta name="description" content="Money POV 免费投资入门课程。在线预览《投资新手第一课》，下载可填写练习的 PDF。">
+  <title>免费投资入门课程 · BBBwealth</title>
+  <link rel="preload" href="./page-1.webp" as="image">
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f6f5fb;
+      --ink: #202c56;
+      --muted: #555c73;
+      --accent: #353fa3;
+      --border: #e2e2f1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font: 1rem/1.55 "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+    }
+    .container { max-width: 52rem; padding: 0 1.25rem; margin: 0 auto; }
+    .top { background: #fff; border-bottom: 1px solid var(--border); }
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem 1.25rem;
+      padding-block: .85rem;
+    }
+    h1 { font-size: clamp(1.12rem, 3vw, 1.5rem); margin: 0; line-height: 1.3; }
+    .brand { color: var(--accent); font-size: .77rem; font-weight: 700; margin: 0 0 .2rem; }
+    .download {
+      display: inline-flex;
+      gap: .45rem;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      min-height: 2.85rem;
+      padding: .52rem .9rem;
+      border-radius: .65rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 750;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .download:hover { background: #252e83; }
+    .download svg { width: 1.15rem; height: 1.15rem; }
+    a:focus-visible { outline: 3px solid #a51d2b; outline-offset: 3px; }
+    .note {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: .25rem 1rem;
+      align-items: baseline;
+      margin: .8rem 0;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+    .note a { color: var(--accent); font-weight: 700; text-underline-offset: .2em; }
+    .preview { display: grid; gap: 1rem; padding-bottom: 1.75rem; }
+    .preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: .7rem;
+    }
+    @media (max-width: 30rem) {
+      .container { padding-inline: .7rem; }
+      .download { font-size: .86rem; padding-inline: .65rem; }
+      .brand { font-size: .68rem; }
+      .note { font-size: .78rem; }
+    }
+    @media (max-width: 20rem) {
+      .bar { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="container bar">
+      <div>
+        <p class="brand">Money POV · @BBBWEALTH</p>
+        <h1>免费投资入门课程</h1>
+      </div>
+      <a class="download" href="./BBBwealth-Investment-Course.pdf" download="BBBwealth-Investment-Course.pdf">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>
+        下载 PDF
+      </a>
+    </div>
+  </header>
+  <main class="container">
+    <div class="note">
+      <span>下载后，用支持 PDF 表单的阅读器填写第 05 节。</span>
+      <a href="./BBBwealth-Investment-Course.pdf" target="_blank" rel="noopener">打开原始 PDF ↗</a>
+    </div>
+    <section class="preview" aria-label="课程 PDF 预览">
+      <img src="./page-1.webp" width="1056" height="2214" alt="第 1 页。投资是什么？从 RM1 看懂复利。" fetchpriority="high">
+      <img src="./page-2.webp" width="1056" height="2214" alt="第 2 页。认识股票、基金和 ETF，了解分散投资，以及可填写的五分钟练习。" loading="lazy">
+    </section>
+  </main>
+</body>
+</html>
