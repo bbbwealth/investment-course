@@ -80,10 +80,12 @@
     th .en { font-size:.77rem; }
     tbody tr + tr > *, tfoot > tr > * { border-top:1px solid var(--line); }
     tbody th { font-weight:700; }
-    .row-title { display:flex; gap:.4rem; align-items:center; }
-    .row-title .icon { width:1.8rem; flex-shrink:0; }
+    .row-title { display:flex; gap:.4rem; align-items:flex-start; }
+    .row-title .icon { width:1.8rem; flex-shrink:0; margin-top:.14rem; }
     .row-title .en { font-size:.76rem; }
-    .row-title small { font-size:.74rem; color:var(--tone); }
+    .row-title .row-example { display:block; margin-top:.24rem; color:var(--muted); font-size:.74rem; font-weight:500; line-height:1.35; }
+    .row-example strong { color:var(--tone); font-size:.67rem; }
+    .row-title .row-example .en { font-size:inherit; }
     tfoot th,tfoot td { background:#f3f3fb; overflow-wrap:anywhere; }
     output { font-weight:800; color:var(--blue); font-variant-numeric:tabular-nums; }
     #feedback { color:var(--red); margin:.5rem 0; font-weight:750; font-size:.88rem; }
@@ -209,27 +211,27 @@
         </tr></thead>
         <tbody>
           <tr class="home">
-            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span><div>日常开销<span class="en" lang="en">Living costs</span></div></div></th>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span><div>日常开销<span class="en" lang="en">Living costs</span><small class="row-example"><strong>EXP</strong> · 吃饭、房租、油钱或车费<span class="en" lang="en">Food, rent, petrol or fares</span></small></div></div></th>
             <td class="numeric split-rate">55%</td>
             <td class="numeric"><output id="split-home" data-rate="55" for="income" aria-live="off">—</output></td>
           </tr>
           <tr class="fun">
-            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span><div>开心钱<span class="en" lang="en">Fun money</span></div></div></th>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span><div>开心钱<span class="en" lang="en">Fun money</span><small class="row-example"><strong>EXP</strong> · 看戏、喝咖啡、买想要的东西<span class="en" lang="en">Movies, coffee or treats</span></small></div></div></th>
             <td class="numeric split-rate">5%</td>
             <td class="numeric"><output id="split-fun" data-rate="5" for="income" aria-live="off">—</output></td>
           </tr>
           <tr class="debt">
-            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span><div>还债<span class="en" lang="en">Debt repayments</span></div></div></th>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span><div>还债<span class="en" lang="en">Debt repayments</span><small class="row-example"><strong>EXP</strong> · 车贷、信用卡欠款<span class="en" lang="en">Car loan or credit card debt</span></small></div></div></th>
             <td class="numeric split-rate">10%</td>
             <td class="numeric"><output id="split-debt" data-rate="10" for="income" aria-live="off">—</output></td>
           </tr>
           <tr class="save">
-            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span><div>近期要存的钱<span class="en" lang="en">Short-term savings</span></div></div></th>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span><div>近期要存的钱<span class="en" lang="en">Short-term savings</span><small class="row-example"><strong>EXP</strong> · 买屋头期、旅行费<span class="en" lang="en">Home down payment or travel</span></small></div></div></th>
             <td class="numeric split-rate">15%</td>
             <td class="numeric"><output id="split-save" data-rate="15" for="income" aria-live="off">—</output></td>
           </tr>
           <tr class="invest">
-            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span><div>长期投资<span class="en" lang="en">Long-term investing</span></div></div></th>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span><div>长期投资<span class="en" lang="en">Long-term investing</span><small class="row-example"><strong>EXP</strong> · 为退休或长期目标做准备<span class="en" lang="en">Retirement or other long-term goals</span></small></div></div></th>
             <td class="numeric split-rate">15%</td>
             <td class="numeric"><output id="split-invest" data-rate="15" for="income" aria-live="off">—</output></td>
           </tr>
