@@ -11,8 +11,10 @@
     :root { color-scheme: light; --paper:#f6f5fb; --ink:#202c56; --muted:#545d75; --blue:#353fa3; --lilac:#e9e9f8; --gold:#fbf0bd; --red:#9b242f; --red-bg:#fbe6e7; --line:#e0e1ed; }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { margin:0; background:var(--paper); color:var(--ink); font:1rem/1.55 "PingFang SC","Noto Sans SC",system-ui,sans-serif; }
+    [hidden] { display:none !important; }
+    body { min-height:100vh; min-height:100svh; display:flex; flex-direction:column; margin:0; background:var(--paper); color:var(--ink); font:1rem/1.55 "PingFang SC","Noto Sans SC",system-ui,sans-serif; }
     main,.wrap { width:min(100% - 2rem,49rem); margin-inline:auto; }
+    main { flex:1; padding-bottom:1.2rem; }
     header { background:#fff; border-bottom:1px solid var(--line); }
     header .wrap { display:flex; justify-content:space-between; align-items:center; gap:.8rem; padding:.8rem 0; }
     .brand { font-size:.82rem; font-weight:800; color:var(--blue); }
@@ -27,6 +29,23 @@
     h1 { font-size:clamp(1.68rem,5.7vw,3.25rem); margin:0; }
     .hero-en { margin:.52rem 0 0; font-weight:800; line-height:1.25; font-size:clamp(.88rem,2.6vw,1.2rem); color:var(--blue); }
     .hero-summary { font-size:.9rem; margin:.7rem 0 .2rem; }
+    .welcome-en { display:block; color:#62563e; font-size:.73rem; font-weight:650; }
+    .start {
+      display:inline-grid;
+      gap:.12rem;
+      min-height:2.75rem;
+      margin-top:.8rem;
+      padding:.52rem .8rem;
+      border-radius:.54rem;
+      background:var(--blue);
+      color:#fff;
+      font-weight:800;
+      line-height:1.25;
+      text-decoration:none;
+    }
+    .start span { font-size:.75rem; font-weight:600; }
+    .start:hover { background:#27308b; }
+    #welcome-title:focus, #worksheet-heading:focus { outline:none; }
     .en { display:block; font-family:system-ui,sans-serif; color:var(--muted); font-size:.84rem; font-weight:500; line-height:1.42; }
     .figure { position:relative; align-self:stretch; min-width:0; }
     .figure::before { content:""; position:absolute; background:#cdd1f0; width:min(84%,17rem); aspect-ratio:1; border-radius:50%; bottom:9%; left:6%; }
@@ -119,20 +138,26 @@
     <symbol id="icon-reserve" viewBox="0 0 24 24"><path d="M12 3.8 19 7v5c0 4-3.4 6.8-7 8.4C8.4 18.8 5 16 5 12V7zM9 12l2 2 4-4"/></symbol>
     <symbol id="icon-invest" viewBox="0 0 24 24"><path d="M4.5 5v14.5H20M7 15l4.5-4.5 3 2L20 6m-4 0h4v4"/></symbol>
   </svg>
-  <header><div class="wrap"><span class="brand">Money POV · @BBBWEALTH</span><a class="jump" href="#worksheet">算我的预算 ↓<span class="en" lang="en">Calculate my budget</span></a></div></header>
+  <header>
+    <div class="wrap">
+      <span class="brand">Money POV · @BBBWEALTH</span>
+      <a class="jump" id="welcome-link" href="#welcome" hidden>← 回到首页<span class="en" lang="en">Back to welcome</span></a>
+    </div>
+  </header>
   <main>
-    <div class="hero">
+    <section class="hero" id="welcome" aria-labelledby="welcome-title">
       <div class="hero-copy">
-        <p class="eyebrow">免费预算入门 / BUDGET</p>
-        <h1>薪水一到手，<br>钱要去哪里？</h1>
+        <p class="eyebrow">欢迎来到 BUDGET<span class="welcome-en" lang="en">Welcome to BUDGET</span></p>
+        <h1 id="welcome-title" tabindex="-1">薪水一到手，<br>钱要去哪里？</h1>
         <p class="hero-en" lang="en">Payday’s here.<br>Where should your money go?</p>
-        <p class="hero-summary">一份薪水，分成 5 份。<span class="en" lang="en">One payday. Five pots.</span></p>
+        <p class="hero-summary">填到手月薪，看看这 5 份钱怎样分。<span class="en" lang="en">Enter your take-home pay to see how to split it into five pots.</span></p>
+        <a class="start" href="#worksheet">开始算预算 →<span lang="en">Start my budget</span></a>
       </div>
       <div class="figure"><img src="./planner.webp" width="1158" height="1359" alt="手拿预算夹板的理财师" fetchpriority="high"></div>
-    </div>
+    </section>
 
-    <section id="worksheet" aria-labelledby="worksheet-heading">
-      <h2 id="worksheet-heading">来分这个月的薪水<span class="en" lang="en">Make this month’s budget</span></h2>
+    <section id="worksheet" aria-labelledby="worksheet-heading" hidden>
+      <h2 id="worksheet-heading" tabindex="-1">来分这个月的薪水<span class="en" lang="en">Make this month’s budget</span></h2>
       <div class="panel example-box income">
         <label for="income"><strong>输入到手月薪</strong><span class="en" lang="en">Enter take-home pay</span></label>
         <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off" placeholder="3,500.00" aria-describedby="feedback"></div>
@@ -276,6 +301,26 @@
       });
       total.value = amounts ? format.format(cents / 100) : '—';
     }
+
+    const welcome = document.getElementById('welcome');
+    const worksheet = document.getElementById('worksheet');
+    const welcomeLink = document.getElementById('welcome-link');
+    const welcomeTitle = document.getElementById('welcome-title');
+    const worksheetTitle = document.getElementById('worksheet-heading');
+
+    function showPage(focusHeading = false) {
+      const showWorksheet = window.location.hash === '#worksheet';
+      welcome.hidden = showWorksheet;
+      worksheet.hidden = !showWorksheet;
+      welcomeLink.hidden = !showWorksheet;
+      if (focusHeading) {
+        window.scrollTo({top: 0, behavior: 'instant'});
+        (showWorksheet ? worksheetTitle : welcomeTitle).focus({preventScroll: true});
+      }
+    }
+
+    window.addEventListener('hashchange', () => showPage(true));
+    showPage();
 
     income.addEventListener('input', updateBudget);
     for (const choice of [noDebt, reserveChoice, investChoice]) choice.addEventListener('change', updateBudget);
