@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5fb">
-  <meta name="description" content="BBBwealth 中英双语预算入门。用 RM4,000 看懂薪水五份法，并直接填写每月预算。">
+  <meta name="description" content="BBBwealth 中英双语预算入门。用 RM4,000 看懂薪水五份法，输入到手月薪，自动算出五份预算。">
   <title>薪水一到手，钱要去哪里？｜BBBwealth BUDGET</title>
   <style>
     @font-face { font-family: Youth; src: url('./title.woff2') format('woff2'); font-weight: 800; font-display: swap; }
@@ -73,7 +73,10 @@
     .table { width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; background:white; border:1px solid var(--line); border-radius:.65rem; overflow:hidden; font-size:.89rem; }
     th,td { padding:.55rem; text-align:left; vertical-align:middle; }
     thead th { background:var(--lilac); color:var(--blue); }
-    thead th:first-child { width:40%; }
+    thead th:first-child { width:52%; }
+    thead th:nth-child(2) { width:17%; }
+    .numeric { text-align:right; font-variant-numeric:tabular-nums; }
+    .split-rate { color:var(--tone); font-weight:800; }
     th .en { font-size:.77rem; }
     tbody tr + tr > *, tfoot > tr > * { border-top:1px solid var(--line); }
     tbody th { font-weight:700; }
@@ -83,8 +86,9 @@
     .row-title small { font-size:.74rem; color:var(--tone); }
     tfoot th,tfoot td { background:#f3f3fb; overflow-wrap:anywhere; }
     output { font-weight:800; color:var(--blue); font-variant-numeric:tabular-nums; }
-    #feedback { min-height:1.5rem; font-weight:750; font-size:.88rem; }
-    #feedback[data-state="over"], #feedback[data-state="invalid"] { color:var(--red); }
+    #feedback { color:var(--red); margin:.5rem 0; font-weight:750; font-size:.88rem; }
+    #feedback:empty { margin:0; }
+    #feedback .en { color:inherit; }
     .adjustments { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; margin:.6rem 0; }
     .adjustments div { background:white; padding:.55rem; border-radius:.45rem; }
     .adjustments strong { display:block; margin-top:.2rem; font-variant-numeric:tabular-nums; }
@@ -122,7 +126,7 @@
     <symbol id="icon-save" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.7"/><circle cx="12" cy="12" r="1.5"/></symbol>
     <symbol id="icon-invest" viewBox="0 0 24 24"><path d="M4.5 5v14.5H20M7 15l4.5-4.5 3 2L20 6m-4 0h4v4"/></symbol>
   </svg>
-  <header><div class="wrap"><span class="brand">Money POV · @BBBWEALTH</span><a class="jump" href="#worksheet">填写预算表 ↓<span class="en" lang="en">Fill in your budget</span></a></div></header>
+  <header><div class="wrap"><span class="brand">Money POV · @BBBWEALTH</span><a class="jump" href="#worksheet">算我的预算 ↓<span class="en" lang="en">Calculate my budget</span></a></div></header>
   <main>
     <div class="hero">
       <div class="hero-copy">
@@ -193,39 +197,52 @@
       <h2 id="worksheet-heading">来分这个月的薪水<span class="en" lang="en">Make this month’s budget</span></h2>
       <div class="panel example-box income">
         <label for="income"><strong>这个月到手的薪水</strong><span class="en" lang="en">This month’s take-home pay</span></label>
-        <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off"></div>
+        <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off" placeholder="3,500.00" aria-describedby="split-guide feedback"></div>
       </div>
-      <p class="how">填这个月进户口的薪水。发薪时填「打算」，月底填实际花了、存了或投了多少。<span class="en" lang="en">Enter the pay that went into your account. Fill in your plan on payday and the actual amounts at month-end.</span></p>
+      <p class="how" id="split-guide">填一次到手月薪，下面就会自动算出每一份。<span class="en" lang="en">Enter your take-home pay once. The five amounts are calculated for you.</span></p>
       <table class="table">
-        <caption class="sr-only">月度预算表 / Monthly budget</caption>
+        <caption class="sr-only">月薪自动分配 / Monthly pay breakdown</caption>
         <thead><tr>
           <th scope="col">钱用在哪里<span class="en" lang="en">Money pot</span></th>
-          <th scope="col" id="plan-col">打算（RM）<span class="en" lang="en">Planned</span></th>
-          <th scope="col" id="actual-col">实际（RM）<span class="en" lang="en">Actual</span></th>
+          <th scope="col" class="numeric">比例<span class="en" lang="en">Share</span></th>
+          <th scope="col" class="numeric">分到的钱<span class="en" lang="en">Amount (RM)</span></th>
         </tr></thead>
         <tbody>
-          <tr class="home"><th scope="row" id="row-home"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span><div>日常开销<span class="en" lang="en">Living costs</span><small>EXP 55%</small></div></div></th><td><div class="entry"><input type="number" id="planned-home" data-kind="planned" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-home plan-col"></div></td><td><div class="entry"><input type="number" id="actual-home" data-kind="actual" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-home actual-col"></div></td></tr>
-          <tr class="fun"><th scope="row" id="row-fun"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span><div>开心钱<span class="en" lang="en">Fun money</span><small>EXP 5%</small></div></div></th><td><div class="entry"><input type="number" id="planned-fun" data-kind="planned" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-fun plan-col"></div></td><td><div class="entry"><input type="number" id="actual-fun" data-kind="actual" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-fun actual-col"></div></td></tr>
-          <tr class="debt"><th scope="row" id="row-debt"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span><div>还债<span class="en" lang="en">Debt repayments</span><small>EXP 10%</small></div></div></th><td><div class="entry"><input type="number" id="planned-debt" data-kind="planned" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-debt plan-col"></div></td><td><div class="entry"><input type="number" id="actual-debt" data-kind="actual" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-debt actual-col"></div></td></tr>
-          <tr class="save"><th scope="row" id="row-save"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span><div>近期要存的钱<span class="en" lang="en">Short-term savings</span><small>EXP 15%</small></div></div></th><td><div class="entry"><input type="number" id="planned-save" data-kind="planned" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-save plan-col"></div></td><td><div class="entry"><input type="number" id="actual-save" data-kind="actual" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-save actual-col"></div></td></tr>
-          <tr class="invest"><th scope="row" id="row-invest"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span><div>长期投资<span class="en" lang="en">Long-term investing</span><small>EXP 15%</small></div></div></th><td><div class="entry"><input type="number" id="planned-invest" data-kind="planned" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-invest plan-col"></div></td><td><div class="entry"><input type="number" id="actual-invest" data-kind="actual" min="0" step="0.01" inputmode="decimal" autocomplete="off" aria-labelledby="row-invest actual-col"></div></td></tr>
+          <tr class="home">
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span><div>日常开销<span class="en" lang="en">Living costs</span></div></div></th>
+            <td class="numeric split-rate">55%</td>
+            <td class="numeric"><output id="split-home" data-rate="55" for="income" aria-live="off">—</output></td>
+          </tr>
+          <tr class="fun">
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span><div>开心钱<span class="en" lang="en">Fun money</span></div></div></th>
+            <td class="numeric split-rate">5%</td>
+            <td class="numeric"><output id="split-fun" data-rate="5" for="income" aria-live="off">—</output></td>
+          </tr>
+          <tr class="debt">
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span><div>还债<span class="en" lang="en">Debt repayments</span></div></div></th>
+            <td class="numeric split-rate">10%</td>
+            <td class="numeric"><output id="split-debt" data-rate="10" for="income" aria-live="off">—</output></td>
+          </tr>
+          <tr class="save">
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span><div>近期要存的钱<span class="en" lang="en">Short-term savings</span></div></div></th>
+            <td class="numeric split-rate">15%</td>
+            <td class="numeric"><output id="split-save" data-rate="15" for="income" aria-live="off">—</output></td>
+          </tr>
+          <tr class="invest">
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span><div>长期投资<span class="en" lang="en">Long-term investing</span></div></div></th>
+            <td class="numeric split-rate">15%</td>
+            <td class="numeric"><output id="split-invest" data-rate="15" for="income" aria-live="off">—</output></td>
+          </tr>
         </tbody>
         <tfoot><tr>
           <th scope="row">合计<span class="en" lang="en">Total (RM)</span></th>
-          <td><output id="planned-total" aria-label="打算合计 / Planned total">—</output></td>
-          <td><output id="actual-total" aria-label="实际合计 / Actual total">—</output></td>
+          <td class="numeric">100%</td>
+          <td class="numeric"><output id="split-total" for="income">—</output></td>
         </tr></tfoot>
       </table>
-      <p id="feedback" role="status" aria-atomic="true"><span id="feedback-zh"></span><span id="feedback-en" class="en" lang="en"></span></p>
+      <p id="feedback" role="status" aria-atomic="true"></p>
+      <p class="how en">比例给你参考，饭钱、房租和还款还是照实际来。<span class="en" lang="en">Use this split as a guide. Budget for your actual food, rent and repayments.</span></p>
 
-      <div class="panel tint">
-        <h3>发薪日算一算<span class="en" lang="en">Payday check</span></h3>
-        <p>「打算」这一列加起来，要等于到手的薪水。<span class="en" lang="en">Your planned total should match your take-home pay.</span></p>
-      </div>
-      <div class="panel">
-        <h3>月底看一看<span class="en" lang="en">Month-end check</span></h3>
-        <p>哪一份花多了？下个月先调那一份。<span class="en" lang="en">Which pot went over budget? Adjust that one first next month.</span></p>
-      </div>
       <div class="panel example-box">
         <h3>EXP · 钱不够分，怎样调？<span class="en" lang="en">How to adjust your budget</span></h3>
         <p>这个月上班的油钱多 RM100。<span class="en" lang="en">Petrol for work costs RM100 more this month.</span></p>
@@ -243,58 +260,43 @@
   <footer>Money POV · @BBBWEALTH</footer>
   <script>
     const income = document.getElementById('income');
-    const planned = Array.from(document.querySelectorAll('input[data-kind="planned"]'));
-    const actual = Array.from(document.querySelectorAll('input[data-kind="actual"]'));
-    const totals = [document.getElementById('planned-total'), document.getElementById('actual-total')];
+    const shares = Array.from(document.querySelectorAll('output[data-rate]'));
+    const total = document.getElementById('split-total');
     const feedback = document.getElementById('feedback');
-    const feedbackZh = document.getElementById('feedback-zh');
-    const feedbackEn = document.getElementById('feedback-en');
     const format = new Intl.NumberFormat('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    function readCents(field) {
-      if (!field.validity.valid) return NaN;
-      if (field.value === '') return null;
-      const cents = Math.round(field.valueAsNumber * 100);
-      return Number.isSafeInteger(cents) ? cents : NaN;
-    }
-
-    function totalFor(fields) {
-      const values = fields.map(readCents);
-      if (values.some(Number.isNaN)) return NaN;
-      if (values.every(value => value === null)) return null;
-      const cents = values.reduce((sum, value) => sum + (value ?? 0), 0);
-      return Number.isSafeInteger(cents) ? cents : NaN;
-    }
-
-    function showFeedback(state, zh, en) {
-      feedback.dataset.state = state;
-      feedbackZh.textContent = zh;
-      feedbackEn.textContent = en;
+    function allocateCents(cents, rates) {
+      const pieces = rates.map((rate, index) => {
+        const exact = BigInt(cents) * BigInt(rate);
+        return {index, amount: Number(exact / 100n), remainder: Number(exact % 100n)};
+      });
+      const centsLeft = cents - pieces.reduce((sum, piece) => sum + piece.amount, 0);
+      // Give any rounding cents to the shares with the largest fractional cents.
+      const byRemainder = [...pieces].sort((a, b) => b.remainder - a.remainder || a.index - b.index);
+      for (const piece of byRemainder.slice(0, centsLeft)) piece.amount++;
+      return pieces.map(piece => piece.amount);
     }
 
     function updateBudget() {
-      const salary = readCents(income);
-      const plan = totalFor(planned);
-      const spent = totalFor(actual);
-      for (const [index, value] of [plan, spent].entries()) {
-        totals[index].textContent = Number.isFinite(value) ? format.format(value / 100) : '—';
+      const cents = Math.round(income.valueAsNumber * 100);
+      const invalid = !income.validity.valid || (income.value !== '' && !Number.isSafeInteger(cents));
+      feedback.replaceChildren();
+      if (invalid) {
+        const english = document.createElement('span');
+        english.className = 'en';
+        english.lang = 'en';
+        english.textContent = 'Enter zero or a positive amount with up to two decimal places.';
+        feedback.append('请输入 0 或正数，最多两位小数。', english);
       }
-      if ([salary, plan, spent].some(Number.isNaN)) {
-        showFeedback('invalid', '请输入 0 或正数，最多两位小数。', 'Enter zero or a positive amount with up to two decimal places.');
-        return;
-      }
-      if (salary === null || plan === null) {
-        showFeedback('', '', '');
-        return;
-      }
-      const remaining = salary - plan;
-      const amount = 'RM' + format.format(Math.abs(remaining) / 100);
-      if (remaining > 0) showFeedback('under', '还有 ' + amount + ' 没分。', amount + ' left to allocate.');
-      else if (remaining < 0) showFeedback('over', '打算分的钱超了 ' + amount + '。', 'Your plan is over by ' + amount + '.');
-      else showFeedback('balanced', '五份刚好等于到手薪水。', 'Your planned total matches your take-home pay.');
+      const amounts = invalid || income.value === '' ? null : allocateCents(cents, shares.map(share => Number(share.dataset.rate)));
+      shares.forEach((share, i) => {
+        share.value = amounts ? format.format(amounts[i] / 100) : '—';
+      });
+      total.value = amounts ? format.format(cents / 100) : '—';
     }
 
-    for (const field of [income, ...planned, ...actual]) field.addEventListener('input', updateBudget);
+    income.addEventListener('input', updateBudget);
+    window.addEventListener('pageshow', updateBudget);
     updateBudget();
   </script>
 </body>
