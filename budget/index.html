@@ -23,13 +23,11 @@
     .hero-copy { z-index:1; min-width:0; padding:clamp(1rem,4vw,2.1rem); padding-right:0; }
     .eyebrow { margin:0 0 .55rem; color:#62563e; font-size:.78rem; font-weight:800; }
     .eyebrow::before { display:inline-block; content:""; width:.42rem; height:.42rem; margin-right:.4rem; border-radius:50%; vertical-align:.15em; background:#b85a47; }
-    h1,h2,.pot-title { font-family:Youth,"PingFang SC",system-ui,sans-serif; font-weight:800; line-height:1.17; }
+    h1,h2 { font-family:Youth,"PingFang SC",system-ui,sans-serif; font-weight:800; line-height:1.17; }
     h1 { font-size:clamp(1.68rem,5.7vw,3.25rem); margin:0; }
     .hero-en { margin:.52rem 0 0; font-weight:800; line-height:1.25; font-size:clamp(.88rem,2.6vw,1.2rem); color:var(--blue); }
-    .hero p:not([class]) { font-size:.9rem; margin:.7rem 0 .2rem; }
+    .hero-summary { font-size:.9rem; margin:.7rem 0 .2rem; }
     .en { display:block; font-family:system-ui,sans-serif; color:var(--muted); font-size:.84rem; font-weight:500; line-height:1.42; }
-    .example { display:inline-flex; flex-wrap:wrap; align-items:baseline; gap:.2rem .45rem; color:white; background:var(--blue); border-radius:.5rem; padding:.34rem .55rem; margin-top:.7rem; font-size:.77rem; font-weight:700; }
-    .example strong { color:var(--gold); }
     .figure { position:relative; align-self:stretch; min-width:0; }
     .figure::before { content:""; position:absolute; background:#cdd1f0; width:min(84%,17rem); aspect-ratio:1; border-radius:50%; bottom:9%; left:6%; }
     .figure img { display:block; position:absolute; width:100%; height:100%; object-fit:contain; object-position:bottom center; inset:0; }
@@ -39,26 +37,13 @@
     h3 { margin:0 0 .4rem; font-size:1rem; line-height:1.35; }
     h3 .en { font-weight:700; }
     p { margin:.3rem 0; }
-    .allocation { display:flex; min-height:1.85rem; overflow:hidden; border-radius:.5rem; margin:.95rem 0 1.4rem; }
-    .allocation span { flex:0 0 var(--share); display:grid; place-items:center; font-size:clamp(.61rem,2vw,.85rem); font-weight:800; font-variant-numeric:tabular-nums; }
-    .allocation span + span { border-left:1px solid white; }
-    .alloc-home { background:#353fa3; color:white; } .alloc-fun { background:#e8a981; } .alloc-debt { background:#a95050; color:white; } .alloc-save { background:#a9c5ad; } .alloc-invest { background:#bec4ea; }
     .home { --soft:#e8e9fa; --tone:#353fa3; } .fun { --soft:#fbe8db; --tone:#89452e; } .debt { --soft:#f9e5e6; --tone:#953e44; } .save { --soft:#e8f3e9; --tone:#365f48; } .invest { --soft:#edebfa; --tone:#494682; }
-    .pots { display:grid; gap:.55rem; margin-bottom:.7rem; }
-    .pot { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:start; gap:.35rem .7rem; padding:.75rem; background:white; border-radius:.7rem; }
     .icon { display:grid; place-items:center; width:2.4rem; aspect-ratio:1; border-radius:.55rem; color:var(--tone); background:var(--soft); }
     .icon svg { width:68%; height:68%; fill:none; stroke:currentColor; stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round; }
-    .pot-title { font-size:1.04rem; }
-    .pot-title .en { font-weight:700; color:var(--tone); margin-top:.12rem; }
-    .pot-numbers { display:flex; align-items:center; justify-content:flex-end; gap:.55rem; font-variant-numeric:tabular-nums; }
-    .rate { display:inline-flex; padding:.14rem .4rem; border-radius:.38rem; color:var(--tone); background:var(--soft); font-size:.8rem; font-weight:800; }
-    .amount { color:var(--blue); white-space:nowrap; font-weight:850; }
-    .pot-detail { grid-column:2 / -1; font-size:.91rem; }
     .panel { margin:.65rem 0; padding:.7rem .85rem; background:#fff; border-radius:.65rem; font-size:.92rem; }
     .tint { background:var(--lilac); }
     .risk { background:var(--red-bg); color:var(--red); }
     .risk .en { color:#812332; }
-    .formula { display:flex; justify-content:space-between; align-items:center; gap:.35rem .8rem; flex-wrap:wrap; }
     .example-box { background:var(--gold); }
     #worksheet { scroll-margin-top:1rem; }
     .income { display:grid; grid-template-columns:minmax(0,1fr) minmax(7rem,12.2rem); gap:.7rem; align-items:center; }
@@ -69,7 +54,6 @@
     input:focus-visible { outline:0; }
     input:invalid { color:var(--red); }
     .entry .unit { flex-shrink:0; color:var(--muted); font-size:.75rem; }
-    .how { margin:.72rem 0; }
     .debt-choice { margin:.7rem 0; }
     .pick { display:flex; align-items:flex-start; gap:.55rem; cursor:pointer; }
     .pick input { flex:none; width:1.06rem; height:1.06rem; margin:.24rem 0 0; accent-color:var(--blue); cursor:pointer; }
@@ -114,13 +98,9 @@
       .hero-copy { padding:.9rem 0 .85rem .78rem; }
       .figure img { width:115%; left:-9%; }
       .eyebrow { font-size:.67rem; }
-      .hero p:not([class]) { font-size:.79rem; }
+      .hero-summary { font-size:.79rem; }
       .hero .en { font-size:.72rem; }
       .hero-en { font-size:.83rem; }
-      .example { font-size:.68rem; }
-      .pot { padding:.6rem; gap:.3rem .55rem; }
-      .pot-numbers { flex-direction:column; gap:.06rem; align-items:flex-end; }
-      .pot-detail { grid-column:2 / -1; }
       .row-title .icon { width:1.45rem; }
       th,td { padding:.42rem .3rem; }
       .table { font-size:.79rem; }
@@ -146,80 +126,24 @@
         <p class="eyebrow">免费预算入门 / BUDGET</p>
         <h1>薪水一到手，<br>钱要去哪里？</h1>
         <p class="hero-en" lang="en">Payday’s here.<br>Where should your money go?</p>
-        <p>把薪水分成 5 份，先算好每一份。</p>
-        <span class="en" lang="en">Split your pay into five pots.</span>
-        <span class="example"><strong>EXP</strong> 示范 · 到手 RM4,000 <span lang="en">Take-home pay</span></span>
+        <p class="hero-summary">一份薪水，分成 5 份。<span class="en" lang="en">One payday. Five pots.</span></p>
       </div>
       <div class="figure"><img src="./planner.webp" width="1158" height="1359" alt="手拿预算夹板的理财师" fetchpriority="high"></div>
     </div>
 
-    <div class="allocation" aria-label="五份示范比例：55%、5%、10%、15%、15%">
-      <span class="alloc-home" style="--share:55%">55%</span><span class="alloc-fun" style="--share:5%">5%</span><span class="alloc-debt" style="--share:10%">10%</span><span class="alloc-save" style="--share:15%">15%</span><span class="alloc-invest" style="--share:15%">15%</span>
-    </div>
-
-    <section aria-labelledby="pots-heading">
-      <h2 id="pots-heading">这 5 份钱，可以怎样用？<span class="en" lang="en">How to use the five pots</span></h2>
-      <div class="pots">
-        <article class="pot home">
-          <span class="icon" aria-hidden="true"><svg><use href="#icon-home"/></svg></span>
-          <div class="pot-title">日常开销<span class="en" lang="en">Living costs</span></div>
-          <div class="pot-numbers"><span class="rate">55%</span><span class="amount">RM2,200</span></div>
-          <div class="pot-detail">吃饭、房租、油钱或车费<span class="en" lang="en">Food, rent, petrol or fares</span></div>
-        </article>
-        <article class="pot fun">
-          <span class="icon" aria-hidden="true"><svg><use href="#icon-fun"/></svg></span>
-          <div class="pot-title">开心钱<span class="en" lang="en">Fun money</span></div>
-          <div class="pot-numbers"><span class="rate">5%</span><span class="amount">RM200</span></div>
-          <div class="pot-detail">看戏、喝咖啡、买想要的东西<span class="en" lang="en">Movies, coffee or treats</span></div>
-        </article>
-        <article class="pot debt">
-          <span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span>
-          <div class="pot-title">还债<span class="en" lang="en">Debt repayments</span></div>
-          <div class="pot-numbers"><span class="rate">10%</span><span class="amount">RM400</span></div>
-          <div class="pot-detail">还贷款或信用卡。没欠钱？先留够备用金，再考虑投资。<span class="en" lang="en">Repay loans or cards. Debt-free? Make sure your emergency fund is enough before investing.</span></div>
-        </article>
-        <article class="pot save">
-          <span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span>
-          <div class="pot-title">近期要存的钱<span class="en" lang="en">Short-term savings</span></div>
-          <div class="pot-numbers"><span class="rate">15%</span><span class="amount">RM600</span></div>
-          <div class="pot-detail">存买车、买屋的头期，或旅行费<span class="en" lang="en">Save for a car or home down payment, or a trip</span></div>
-        </article>
-        <article class="pot invest">
-          <span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span>
-          <div class="pot-title">长期投资<span class="en" lang="en">Long-term investing</span></div>
-          <div class="pot-numbers"><span class="rate">15%</span><span class="amount">RM600</span></div>
-          <div class="pot-detail">留着几年后才用的钱<span class="en" lang="en">Money you plan to leave invested for years</span></div>
-        </article>
-      </div>
-      <div class="panel tint formula">
-        <div><strong>每份金额 = 到手薪水 × 百分比</strong><span class="en" lang="en">Amount per pot = take-home pay × percentage</span></div>
-        <strong class="amount">RM4,000 × 55% = RM2,200</strong>
-      </div>
-      <div class="panel risk">
-        <h3>影片的比例，给你参考。<span class="en" lang="en">Use the video’s percentages as a starting point.</span></h3>
-        <p>先留够饭钱、房租和这个月要还的钱，再调其他几份。五份加起来，要等于到手的薪水。<span class="en" lang="en">Cover food, rent and repayments due first. Then adjust the other pots. All five should add up to your take-home pay.</span></p>
-      </div>
-      <div class="panel">
-        <h3>为什么有两份 15%？<span class="en" lang="en">Why are there two 15% pots?</span></h3>
-        <p>快要用的钱先存起来。比如明年要付的买屋头期。<span class="en" lang="en">Save money you’ll need soon, like next year’s home down payment.</span></p>
-        <p>几年内用不到的钱，可以考虑投资。投资有涨有跌。<span class="en" lang="en">Consider investing money you won’t need for years. Investments can rise or fall in value.</span></p>
-      </div>
-    </section>
-
     <section id="worksheet" aria-labelledby="worksheet-heading">
       <h2 id="worksheet-heading">来分这个月的薪水<span class="en" lang="en">Make this month’s budget</span></h2>
       <div class="panel example-box income">
-        <label for="income"><strong>这个月到手的薪水</strong><span class="en" lang="en">This month’s take-home pay</span></label>
-        <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off" placeholder="3,500.00" aria-describedby="split-guide feedback"></div>
+        <label for="income"><strong>输入到手月薪</strong><span class="en" lang="en">Enter take-home pay</span></label>
+        <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off" placeholder="3,500.00" aria-describedby="feedback"></div>
       </div>
-      <p class="how" id="split-guide">填一次到手月薪，下面就会自动算出每一份。<span class="en" lang="en">Enter your take-home pay once. The five amounts are calculated for you.</span></p>
       <div class="panel tint debt-choice">
         <label class="pick" for="no-debt">
           <input type="checkbox" id="no-debt" aria-controls="debt-destination">
           <span><strong>我没有欠债</strong><span class="en" lang="en">I have no debt</span></span>
         </label>
         <fieldset class="destination" id="debt-destination" hidden>
-          <legend>原本拿来还债的 10%，想放哪里？<span class="en" lang="en">Where should the 10% go?</span></legend>
+          <legend>这 10% 放哪里？<span class="en" lang="en">Where should the 10% go?</span></legend>
           <div class="choices">
             <label class="pick" for="to-reserve">
               <input type="radio" id="to-reserve" name="debt-destination" value="reserve" checked>
@@ -278,17 +202,21 @@
         </tr></tfoot>
       </table>
       <p id="feedback" role="status" aria-atomic="true"></p>
-      <p class="how en">上面的金额是参考。比如表里算出 RM350 还债，但账单要还 RM450，就先留 RM450，再看看哪笔开销可以减。<span class="en" lang="en">Use these amounts as a guide. If the table says RM350 for debt but your bill is RM450, set aside RM450 first and see what else you can cut.</span></p>
-
+      <div class="panel risk">
+        <p>先留够饭钱、房租和要还的钱，再调其他几份。<span class="en" lang="en">Cover food, rent and repayments first, then adjust the other pots.</span></p>
+        <p>备用金留够了，再考虑投资。<span class="en" lang="en">Build an emergency fund before investing.</span></p>
+      </div>
+      <div class="panel">
+        <h3>两份 15%，有什么分别？<span class="en" lang="en">Why two 15% pots?</span></h3>
+        <p>快要用的钱先存。几年内用不到的钱可以考虑投资，投资有涨有跌。<span class="en" lang="en">Save what you’ll need soon. For money you can leave for years, consider investing. Its value can rise or fall.</span></p>
+      </div>
       <div class="panel example-box">
-        <h3>EXP · 钱不够分，怎样调？<span class="en" lang="en">How to adjust your budget</span></h3>
-        <p>这个月上班的油钱多 RM100。<span class="en" lang="en">Petrol for work costs RM100 more this month.</span></p>
+        <h3>EXP · 油钱多 RM100，怎样调？<span class="en" lang="en">Petrol costs RM100 more. What can you adjust?</span></h3>
+        <p>上班要用的油钱先留够。从可以迟点花的开心钱挪 RM100。<span class="en" lang="en">Set aside petrol for work. Move RM100 from fun spending that can wait.</span></p>
         <div class="adjustments">
           <div>日常开销<span class="en" lang="en">Living costs</span><strong>RM2,200 → RM2,300</strong></div>
           <div>开心钱<span class="en" lang="en">Fun money</span><strong>RM200 → RM100</strong></div>
         </div>
-        <p>上班要用油，先留油钱。看戏、喝咖啡可以等一等。<span class="en" lang="en">Set aside your petrol money first. A movie or coffee can wait.</span></p>
-        <p>开心钱不够减？就找另一笔可以迟点花的。<span class="en" lang="en">If there’s not enough to cut from fun money, look for another expense you can put off.</span></p>
         <p><strong>总预算还是 RM4,000。</strong><span class="en" lang="en">The total stays at RM4,000.</span></p>
       </div>
       <p class="footnote">预算习惯参考 / Budgeting guidance · <a href="https://www.bnm.gov.my/financial-capability-and-empowerment">Bank Negara Malaysia</a></p>
