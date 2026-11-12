@@ -70,6 +70,16 @@
     input:invalid { color:var(--red); }
     .entry .unit { flex-shrink:0; color:var(--muted); font-size:.75rem; }
     .how { margin:.72rem 0; }
+    .debt-choice { margin:.7rem 0; }
+    .pick { display:flex; align-items:flex-start; gap:.55rem; cursor:pointer; }
+    .pick input { flex:none; width:1.06rem; height:1.06rem; margin:.24rem 0 0; accent-color:var(--blue); cursor:pointer; }
+    .pick input:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+    .pick .en { font-size:.8rem; }
+    .destination { min-width:0; margin:.65rem 0 0; padding:.62rem .66rem; border:1px solid var(--line); border-radius:.5rem; }
+    .destination legend { padding:0 .3rem; font-weight:750; }
+    .destination legend .en { font-size:.77rem; }
+    .choices { display:flex; flex-wrap:wrap; gap:.5rem 1rem; }
+    .reserve { --soft:#e8f3e9; --tone:#365f48; }
     .table { width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; background:white; border:1px solid var(--line); border-radius:.65rem; overflow:hidden; font-size:.89rem; }
     th,td { padding:.55rem; text-align:left; vertical-align:middle; }
     thead th { background:var(--lilac); color:var(--blue); }
@@ -126,6 +136,7 @@
     <symbol id="icon-fun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9 10h.1m5.8 0h.1M8.8 13.5a3.8 3.8 0 0 0 6.4 0"/></symbol>
     <symbol id="icon-debt" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="M4 10h16m-13 4h4"/></symbol>
     <symbol id="icon-save" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.7"/><circle cx="12" cy="12" r="1.5"/></symbol>
+    <symbol id="icon-reserve" viewBox="0 0 24 24"><path d="M12 3.8 19 7v5c0 4-3.4 6.8-7 8.4C8.4 18.8 5 16 5 12V7zM9 12l2 2 4-4"/></symbol>
     <symbol id="icon-invest" viewBox="0 0 24 24"><path d="M4.5 5v14.5H20M7 15l4.5-4.5 3 2L20 6m-4 0h4v4"/></symbol>
   </svg>
   <header><div class="wrap"><span class="brand">Money POV · @BBBWEALTH</span><a class="jump" href="#worksheet">算我的预算 ↓<span class="en" lang="en">Calculate my budget</span></a></div></header>
@@ -202,6 +213,25 @@
         <div class="entry"><span class="unit">RM</span><input id="income" type="number" min="0" step="0.01" inputmode="decimal" autocomplete="off" placeholder="3,500.00" aria-describedby="split-guide feedback"></div>
       </div>
       <p class="how" id="split-guide">填一次到手月薪，下面就会自动算出每一份。<span class="en" lang="en">Enter your take-home pay once. The five amounts are calculated for you.</span></p>
+      <div class="panel tint debt-choice">
+        <label class="pick" for="no-debt">
+          <input type="checkbox" id="no-debt" aria-controls="debt-destination">
+          <span><strong>我没有欠债</strong><span class="en" lang="en">I have no debt</span></span>
+        </label>
+        <fieldset class="destination" id="debt-destination" hidden>
+          <legend>原本拿来还债的 10%，想放哪里？<span class="en" lang="en">Where should the 10% go?</span></legend>
+          <div class="choices">
+            <label class="pick" for="to-reserve">
+              <input type="radio" id="to-reserve" name="debt-destination" value="reserve" checked>
+              <span>备用金<span class="en" lang="en">Emergency fund</span></span>
+            </label>
+            <label class="pick" for="to-invest">
+              <input type="radio" id="to-invest" name="debt-destination" value="invest">
+              <span>长期投资<span class="en" lang="en">Long-term investing</span></span>
+            </label>
+          </div>
+        </fieldset>
+      </div>
       <table class="table">
         <caption class="sr-only">月薪自动分配 / Monthly pay breakdown</caption>
         <thead><tr>
@@ -220,10 +250,15 @@
             <td class="numeric split-rate">5%</td>
             <td class="numeric"><output id="split-fun" data-rate="5" for="income" aria-live="off">—</output></td>
           </tr>
-          <tr class="debt">
+          <tr class="debt" id="debt-row">
             <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-debt"/></svg></span><div>还债<span class="en" lang="en">Debt repayments</span><small class="row-example"><strong>EXP</strong> · 车贷、信用卡欠款<span class="en" lang="en">Car loan or credit card debt</span></small></div></div></th>
             <td class="numeric split-rate">10%</td>
             <td class="numeric"><output id="split-debt" data-rate="10" for="income" aria-live="off">—</output></td>
+          </tr>
+          <tr class="reserve" id="reserve-row" hidden>
+            <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-reserve"/></svg></span><div>备用金<span class="en" lang="en">Emergency fund</span><small class="row-example"><strong>EXP</strong> · 突然要看医生或没收入时用<span class="en" lang="en">Unexpected medical bills or loss of income</span></small></div></div></th>
+            <td class="numeric split-rate">10%</td>
+            <td class="numeric"><output id="split-reserve" data-rate="10" for="income" aria-live="off">—</output></td>
           </tr>
           <tr class="save">
             <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-save"/></svg></span><div>近期要存的钱<span class="en" lang="en">Short-term savings</span><small class="row-example"><strong>EXP</strong> · 买屋头期、旅行费<span class="en" lang="en">Home down payment or travel</span></small></div></div></th>
@@ -232,7 +267,7 @@
           </tr>
           <tr class="invest">
             <th scope="row"><div class="row-title"><span class="icon" aria-hidden="true"><svg><use href="#icon-invest"/></svg></span><div>长期投资<span class="en" lang="en">Long-term investing</span><small class="row-example"><strong>EXP</strong> · 为退休或长期目标做准备<span class="en" lang="en">Retirement or other long-term goals</span></small></div></div></th>
-            <td class="numeric split-rate">15%</td>
+            <td class="numeric split-rate" id="invest-rate">15%</td>
             <td class="numeric"><output id="split-invest" data-rate="15" for="income" aria-live="off">—</output></td>
           </tr>
         </tbody>
@@ -243,7 +278,7 @@
         </tr></tfoot>
       </table>
       <p id="feedback" role="status" aria-atomic="true"></p>
-      <p class="how en">比例给你参考，饭钱、房租和还款还是照实际来。<span class="en" lang="en">Use this split as a guide. Budget for your actual food, rent and repayments.</span></p>
+      <p class="how en">上面的金额是参考。比如表里算出 RM350 还债，但账单要还 RM450，就先留 RM450，再看看哪笔开销可以减。<span class="en" lang="en">Use these amounts as a guide. If the table says RM350 for debt but your bill is RM450, set aside RM450 first and see what else you can cut.</span></p>
 
       <div class="panel example-box">
         <h3>EXP · 钱不够分，怎样调？<span class="en" lang="en">How to adjust your budget</span></h3>
@@ -264,6 +299,14 @@
     const income = document.getElementById('income');
     const shares = Array.from(document.querySelectorAll('output[data-rate]'));
     const total = document.getElementById('split-total');
+    const noDebt = document.getElementById('no-debt');
+    const destination = document.getElementById('debt-destination');
+    const reserveChoice = document.getElementById('to-reserve');
+    const investChoice = document.getElementById('to-invest');
+    const debtRow = document.getElementById('debt-row');
+    const reserveRow = document.getElementById('reserve-row');
+    const investShare = document.getElementById('split-invest');
+    const investRate = document.getElementById('invest-rate');
     const feedback = document.getElementById('feedback');
     const format = new Intl.NumberFormat('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
@@ -280,6 +323,15 @@
     }
 
     function updateBudget() {
+      const toReserve = noDebt.checked && reserveChoice.checked;
+      const toInvest = noDebt.checked && investChoice.checked;
+      destination.hidden = !noDebt.checked;
+      debtRow.hidden = noDebt.checked;
+      reserveRow.hidden = !toReserve;
+      const investmentPercentage = Number(investShare.dataset.rate) + (toInvest ? Number(reserveRow.querySelector('output').dataset.rate) : 0);
+      investRate.textContent = investmentPercentage + '%';
+      const activeShares = shares.filter(share => !share.closest('tr').hidden);
+      const rates = activeShares.map(share => share === investShare ? investmentPercentage : Number(share.dataset.rate));
       const cents = Math.round(income.valueAsNumber * 100);
       const invalid = !income.validity.valid || (income.value !== '' && !Number.isSafeInteger(cents));
       feedback.replaceChildren();
@@ -290,14 +342,15 @@
         english.textContent = 'Enter zero or a positive amount with up to two decimal places.';
         feedback.append('请输入 0 或正数，最多两位小数。', english);
       }
-      const amounts = invalid || income.value === '' ? null : allocateCents(cents, shares.map(share => Number(share.dataset.rate)));
-      shares.forEach((share, i) => {
+      const amounts = invalid || income.value === '' ? null : allocateCents(cents, rates);
+      activeShares.forEach((share, i) => {
         share.value = amounts ? format.format(amounts[i] / 100) : '—';
       });
       total.value = amounts ? format.format(cents / 100) : '—';
     }
 
     income.addEventListener('input', updateBudget);
+    for (const choice of [noDebt, reserveChoice, investChoice]) choice.addEventListener('change', updateBudget);
     window.addEventListener('pageshow', updateBudget);
     updateBudget();
   </script>
